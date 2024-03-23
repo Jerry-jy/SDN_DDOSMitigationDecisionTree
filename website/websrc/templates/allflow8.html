@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+  <head>
+	  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+  <style>
+    .dropbtn {
+      background-color: #353535;
+      color: white;
+      padding: 16px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .dropbtn:hover, .dropbtn:focus {
+      background-color: #414141;
+    }
+    
+    .dropdown {
+      float: right;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 160px;
+      overflow: auto;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      right: 0;
+      z-index: 1;
+    }
+    
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+    
+    .dropdown a:hover {background-color: #ddd;}
+    
+    .show {display: block;}
+    </style>
+	</head>
+
+	<body>
+		{% include "navbar.html" %}
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+          <div class="dropdown">
+            <button onclick="myFunction()" class="dropbtn">Switch list</button>
+            <div id="myDropdown" class="dropdown-content">
+              <a href="http://127.0.0.1:8000/allflowstats1">s1</a>
+              <a href="http://127.0.0.1:8000/allflowstats2">s2</a>
+              <a href="http://127.0.0.1:8000/allflowstats3">s3</a>
+              <a href="http://127.0.0.1:8000/allflowstats4">s4</a>
+              <a href="http://127.0.0.1:8000/allflowstats5">s5</a>
+              <a href="http://127.0.0.1:8000/allflowstats6">s6</a>
+              <a href="http://127.0.0.1:8000/allflowstats7">s7</a>
+              <a href="http://127.0.0.1:8000/allflowstats8">s8</a>
+              <a href="http://127.0.0.1:8000/allflowstats9">s9</a>
+            </div>
+          </div>
+					<h2 class="heading-section">All Flows S8</h2>
+         
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+          <!-- <form action="stats/flowentry/clear/" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Delete All Flow Entry" />
+        </form> -->
+        
+        
+					<div class="table-wrap">
+						<table class="table table-bordered table-dark table-hover" id="myTable2">
+						  <thead>
+						    <tr onclick="sortTable(0)"> 
+                                <th> Lenght</th>
+                                <th> Table Id</th>
+                                <th>Alive Time Flow (s)</th>
+                                <th>Alive Time Flow (ns)</th>
+                                <th>Priority</th>
+                                <th>Packets Count</th>
+                                <th>Byte Count</th>
+                                <th>In Port</th>
+                                <th>Ethernet Source Adress</th>
+                                <th>Ethernet Destination Address</th>
+                                <th>Port Output</th>
+                                <th>Idle Timeout </th>
+                                <th>Hard Timeout</th>
+                                <th>Flags</th>
+                                <th>Cookie</th>
+                               
+						    </tr>
+						  </thead>
+						  <tbody>
+							{% for rule in rules %}
+        <tr>
+            <!-- <td>
+                <form action="{% url 'addflow'%}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit">Delete Rule</button>
+                </form>
+            </td> -->
+
+            <td>{{ rule.length }}</td>
+            <td>{{ rule.table_id }}</td>
+            <td>{{ rule.duration_sec }}</td>
+            <td>{{ rule.duration_nsec }}</td>
+            <td>{{ rule.priority }}</td>
+            <td>{{ rule.packet_count }}</td>
+            <td>{{ rule.byte_count }}</td>
+            <td>{{ rule.match.in_port }}</td>
+            <td>{{ rule.match.dl_src }}</td>
+            <td>{{ rule.match.dl_dst }}</td>
+            <td>{{ rule.actions }}</td>
+            <td>{{ rule.idle_timeout }}</td>
+            <td>{{ rule.hard_timeout }}</td>
+            <td>{{ rule.flags }}</td>
+            <td>{{ rule.cookie }}</td>
+           
+
+
+            <!-- <td>{{ rules.1.lenght }}</td>
+            <td>{{ rules.1.table_id }}</td>
+            <td>{{ rules.1.duration_sec }}</td>
+            <td>{{ rules.1.duration_nsec }}</td>
+            <td>{{ rules.1.priority }}</td>
+            <td>{{ rules.1.idle_timeout }}</td>
+            <td>{{ rules.1.hard_timeout }}</td>
+            <td>{{ rules.1.flags }}</td>
+            <td>{{ rules.1.cookie }}</td>
+            <td>{{ rules.1.packet_count }}</td>
+            <td>{{ rules.1.byte_count }}</td>
+            <td>{{ rules.1.match.in_port }}</td>
+            <td>{{ rules.1.actions.OUTPUT }}</td> -->
+            <!-- <td>{{ rule.dpid }}</td>
+            <td>{{ rule.cookie }}</td>
+            <td>{{ rule.cookie_mask }}</td>
+            <td>{{ rule.table_id }}</td>
+            <td>{{ rule.idle_timeout }}</td>
+            <td>{{ rule.hard_timeout }}</td>
+            <td>{{ rule.priority }}</td>
+            <td>{{ rule.flags }}</td>
+            <td>{{ rule.match }}</td> -->
+           
+<!--             
+                <td>{{ switch.switch_id|default_if_none:"-" }}</td>
+                <td>{{ rule.rule_id|default_if_none:"-" }}</td>
+                <td>{{ rule.priority|default_if_none:"-" }}</td>
+                <td>{{ rule.dl_type|default_if_none:"-" }}</td>
+                <td>{{ rule.nw_src|default_if_none:"-" }}</td>
+                <td>{{ rule.nw_dst|default_if_none:"-" }}</td>
+                <td>{{ rule.ipv6_src|default_if_none:"-" }}</td>
+                <td>{{ rule.ipv6_dst|default_if_none:"-" }}</td>
+                <td>{{ rule.nw_proto|default_if_none:"-" }}</td>
+                <td>{{ rule.tp_src|default_if_none:"-" }}</td>
+                <td>{{ rule.tp_dst|default_if_none:"-" }}</td>
+                <td>{{ rule.actions|default_if_none:"-" }}</td>
+            -->
+        </tr>
+        {% endfor %}
+						    </tr>
+						  </tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- href="{% static 'css/style.css' %}" -->
+	{% load static %}
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/popper.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script> 
+
+	</body>
+</html>
+
+{% include "footer.html" %}
+
+<script>
+    function sortTable(n) {
+      var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+      table = document.getElementById("myTable2");
+      switching = true;
+      // Set the sorting direction to ascending:
+      dir = "asc";
+      /* Make a loop that will continue until
+      no switching has been done: */
+      while (switching) {
+        // Start by saying: no switching is done:
+        switching = false;
+        rows = table.rows;
+        /* Loop through all table rows (except the
+        first, which contains table headers): */
+        for (i = 1; i < (rows.length - 1); i++) {
+          // Start by saying there should be no switching:
+          shouldSwitch = false;
+          /* Get the two elements you want to compare,
+          one from current row and one from the next: */
+          x = rows[i].getElementsByTagName("TD")[n];
+          y = rows[i + 1].getElementsByTagName("TD")[n];
+          /* Check if the two rows should switch place,
+          based on the direction, asc or desc: */
+          if (dir == "asc") {
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          } else if (dir == "desc") {
+            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          }
+        }
+        if (shouldSwitch) {
+          /* If a switch has been marked, make the switch
+          and mark that a switch has been done: */
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          // Each time a switch is done, increase this count by 1:
+          switchcount ++;
+        } else {
+          /* If no switching has been done AND the direction is "asc",
+          set the direction to "desc" and run the while loop again. */
+          if (switchcount == 0 && dir == "asc") {
+            dir = "desc";
+            switching = true;
+          }
+        }
+      }
+    }
+    </script>
+
+<script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
